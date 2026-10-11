@@ -1,0 +1,105 @@
+<Window x:Class="Conferencia.Setup.SetupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Instalação — Confere"
+        Width="820" Height="520" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#F3F5F4" FontFamily="Segoe UI" FontSize="14"
+        UseLayoutRounding="True" TextOptions.TextFormattingMode="Display">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#0F6B55">
+            <DockPanel Margin="28,32,28,24">
+                <StackPanel DockPanel.Dock="Bottom">
+                    <TextBlock Text="Versão 1.0.0" Foreground="#D5EBE3" FontSize="12"/>
+                    <TextBlock Text="Uso local neste computador" Foreground="#D5EBE3" FontSize="12" Margin="0,4,0,0" TextWrapping="Wrap"/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Top">
+                    <Border Width="88" Height="88" CornerRadius="18" Background="#0C5A48" HorizontalAlignment="Left">
+                        <Image x:Name="Logo" Margin="6" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Border>
+                    <TextBlock Text="Confere" Foreground="White" FontSize="20" FontWeight="SemiBold"
+                               TextWrapping="Wrap" Margin="0,22,0,8"/>
+                    <TextBlock x:Name="TextoMarca" Text="Assistente de instalação" Foreground="#D5EBE3" FontSize="13" TextWrapping="Wrap"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <DockPanel Grid.Column="1" Margin="28,24,28,20">
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                <Button x:Name="BtnVoltar" Content="Voltar" Click="Voltar_Click" MinWidth="96" Margin="0,0,8,0"/>
+                <Button x:Name="BtnAvancar" Content="Avançar" Click="Avancar_Click" MinWidth="120"/>
+            </StackPanel>
+
+            <Grid>
+                <StackPanel x:Name="PaginaBoasVindas">
+                    <TextBlock Text="Bem-vindo" FontSize="26" FontWeight="SemiBold" Foreground="#18221F"/>
+                    <TextBlock Margin="0,14,0,0" TextWrapping="Wrap" Foreground="#18221F" LineHeight="22"
+                               Text="Este assistente instala o Confere neste computador. Depois da instalação, o programa abre para ler os PDFs de DANFE, separar os carregamentos e montar o romaneio."/>
+                    <TextBlock Margin="0,12,0,0" TextWrapping="Wrap" Foreground="#5D6B66" LineHeight="22"
+                               Text="Nada é enviado para a internet. A leitura acontece só nesta máquina. Ao terminar, o programa entra em Aplicativos instalados e pode ser removido por lá."/>
+                </StackPanel>
+
+                <StackPanel x:Name="PaginaTermos" Visibility="Collapsed">
+                    <TextBlock Text="Termos da licença" FontSize="26" FontWeight="SemiBold" Foreground="#18221F"/>
+                    <Border Margin="0,14,0,0" BorderBrush="#D8DFDC" BorderThickness="1" CornerRadius="8" Background="White" Padding="12" Height="250">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <TextBlock x:Name="TextoLicenca" TextWrapping="Wrap" Foreground="#18221F" LineHeight="20" FontSize="13"/>
+                        </ScrollViewer>
+                    </Border>
+                    <CheckBox x:Name="ChkAceite" Margin="0,14,0,0" Foreground="#18221F"
+                              Content="Li e aceito os termos da licença" Checked="Aceite_Changed" Unchecked="Aceite_Changed"/>
+                </StackPanel>
+
+                <StackPanel x:Name="PaginaOpcoes" Visibility="Collapsed">
+                    <TextBlock Text="Pronto para instalar" FontSize="26" FontWeight="SemiBold" Foreground="#18221F"/>
+                    <TextBlock Margin="0,14,0,0" Foreground="#5D6B66" Text="Pasta de instalação"/>
+                    <TextBlock x:Name="TextoPasta" Margin="0,4,0,0" FontFamily="Consolas" FontSize="13" Foreground="#18221F" TextWrapping="Wrap"/>
+                    <CheckBox x:Name="ChkMenu" Margin="0,18,0,0" IsChecked="True" Foreground="#18221F" Content="Criar atalho no Menu Iniciar"/>
+                    <CheckBox x:Name="ChkArea" Margin="0,10,0,0" Foreground="#18221F" Content="Criar atalho na Área de Trabalho"/>
+                    <TextBlock x:Name="TextoJaInstalado" Margin="0,16,0,0" TextWrapping="Wrap" Foreground="#9A5B00" Visibility="Collapsed"
+                               Text="Já existe uma instalação neste usuário. Continuar substitui os arquivos do programa."/>
+                </StackPanel>
+
+                <StackPanel x:Name="PaginaProgresso" Visibility="Collapsed">
+                    <TextBlock x:Name="TituloProgresso" Text="Instalando" FontSize="26" FontWeight="SemiBold" Foreground="#18221F"/>
+                    <TextBlock x:Name="StatusProgresso" Margin="0,8,0,0" Foreground="#5D6B66" Text="Preparando…" TextWrapping="Wrap"/>
+                    <ProgressBar x:Name="Barra" Margin="0,16,0,0" Height="10" Minimum="0" Maximum="100" Foreground="#0F6B55" Background="#E1F0EB" BorderThickness="0"/>
+                    <StackPanel Margin="0,18,0,0">
+                        <TextBlock x:Name="Etapa0" Text="○  Preparando a instalação" Margin="0,0,0,8" Foreground="#5D6B66"/>
+                        <TextBlock x:Name="Etapa1" Text="○  Copiando o programa" Margin="0,0,0,8" Foreground="#5D6B66"/>
+                        <TextBlock x:Name="Etapa2" Text="○  Criando atalhos" Margin="0,0,0,8" Foreground="#5D6B66"/>
+                        <TextBlock x:Name="Etapa3" Text="○  Registrando em Aplicativos instalados" Margin="0,0,0,8" Foreground="#5D6B66"/>
+                        <TextBlock x:Name="Etapa4" Text="○  Concluído" Foreground="#5D6B66"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel x:Name="PaginaFim" Visibility="Collapsed">
+                    <TextBlock Text="Instalação concluída" FontSize="26" FontWeight="SemiBold" Foreground="#18221F"/>
+                    <TextBlock Margin="0,14,0,0" TextWrapping="Wrap" Foreground="#18221F" LineHeight="22"
+                               Text="O Confere foi instalado. Ele aparece em Configurações, em Aplicativos instalados, e pode ser removido por lá."/>
+                    <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Foreground="#5D6B66" LineHeight="22"
+                               Text="O atalho também fica no Menu Iniciar, se você marcou essa opção."/>
+                    <CheckBox x:Name="ChkAbrir" Margin="0,18,0,0" IsChecked="True" Foreground="#18221F" Content="Abrir o programa agora"/>
+                </StackPanel>
+
+                <StackPanel x:Name="PaginaRemover" Visibility="Collapsed">
+                    <TextBlock Text="Desinstalar" FontSize="26" FontWeight="SemiBold" Foreground="#18221F"/>
+                    <TextBlock Margin="0,14,0,0" TextWrapping="Wrap" Foreground="#18221F" LineHeight="22"
+                               Text="Remove o Confere deste usuário: arquivos do programa, atalhos, parâmetros salvos e a entrada em Aplicativos instalados."/>
+                    <TextBlock x:Name="TextoRemocao" Margin="0,14,0,0" TextWrapping="Wrap" Foreground="#5D6B66"/>
+                </StackPanel>
+
+                <StackPanel x:Name="PaginaRemovido" Visibility="Collapsed">
+                    <TextBlock Text="Programa removido" FontSize="26" FontWeight="SemiBold" Foreground="#18221F"/>
+                    <TextBlock Margin="0,14,0,0" TextWrapping="Wrap" Foreground="#18221F" LineHeight="22"
+                               Text="O Confere saiu de Aplicativos instalados. Os arquivos são apagados em seguida."/>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>

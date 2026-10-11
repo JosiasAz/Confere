@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Conferencia.Core\Conferencia.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationTitle>Confere</ApplicationTitle>
+    <Product>Confere</Product>
+    <Description>Conferência de carregamento a partir de DANFE: volumes, lotes e quebras.</Description>
+    <Version>1.0.0</Version>
+    <ApplicationIcon>..\assets\logo.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="..\assets\logo.jpg" Link="assets/logo.jpg" />
+    <Content Include="..\assets\logo.ico" Link="logo.ico" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

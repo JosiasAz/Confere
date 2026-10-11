@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/Conferencia.Core/Conferencia.Core.csproj" />
+  <Project Path="src/ConferenciaCarregamento/ConferenciaCarregamento.csproj" />
+  <Project Path="src/Conferencia.Setup/Conferencia.Setup.csproj" />
+</Solution>

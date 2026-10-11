@@ -1,0 +1,200 @@
+﻿<Window x:Class="ConferenciaCarregamento.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Confere"
+        Icon="pack://application:,,,/assets/logo.jpg"
+        Width="1180" Height="780" MinWidth="960" MinHeight="560"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource Bg}"
+        Foreground="{DynamicResource Ink}"
+        FontFamily="Segoe UI" FontSize="14"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Display"
+        AllowDrop="True"
+        DragOver="Janela_DragOver" DragLeave="Janela_DragLeave" Drop="Janela_Drop">
+    <Window.Resources>
+        <Style x:Key="Btn" TargetType="Button">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="{DynamicResource Ink}"/>
+            <Setter Property="Background" Value="{DynamicResource Surface}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Line}"/>
+            <Setter Property="Padding" Value="12,7"/>
+            <Setter Property="Margin" Value="0,0,8,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="b" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="b" Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.45"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{DynamicResource Surface}"/>
+            <Setter Property="Foreground" Value="{DynamicResource Muted}"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Line}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="Foreground" Value="{DynamicResource Ink}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource Line}"/>
+            <Setter Property="Padding" Value="4,2"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource AccentSoft}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Ink}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <DockPanel>
+            <Border DockPanel.Dock="Top" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Line}" BorderThickness="0,0,0,1">
+                <Grid Margin="16,12,16,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,16,8">
+                        <Image Width="42" Height="42" Margin="0,0,12,0" RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="pack://application:,,,/assets/logo.jpg"/>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Confere" FontSize="17" FontWeight="SemiBold"/>
+                            <TextBlock Text="DANFE → volumes e lotes por carregamento" FontSize="12" Foreground="{DynamicResource Muted}" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <WrapPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button x:Name="BtnExemplo" Style="{StaticResource Btn}" Content="Ver exemplo" Click="Exemplo_Click"/>
+                        <Button x:Name="BtnCopiar" Style="{StaticResource Btn}" Content="Copiar p/ Excel" IsEnabled="False" Click="Copiar_Click"/>
+                        <Button x:Name="BtnCsv" Style="{StaticResource Btn}" Content="Baixar planilha" IsEnabled="False" Click="Csv_Click"/>
+                        <Button x:Name="BtnImprimir" Style="{StaticResource Btn}" Content="Imprimir" IsEnabled="False" Click="Imprimir_Click"/>
+                        <Button x:Name="BtnLimpar" Style="{StaticResource Btn}" Content="Limpar" IsEnabled="False" Click="Limpar_Click"/>
+                        <CheckBox x:Name="ChkDet" Content="Detalhe por NF" IsChecked="True" VerticalAlignment="Center" Margin="4,0,0,8"
+                                  Foreground="{DynamicResource Ink}" Checked="Detalhe_Changed" Unchecked="Detalhe_Changed"/>
+                    </WrapPanel>
+                    <Button x:Name="BtnTema" Grid.Column="2" Width="36" Height="36" Padding="0" Margin="8,0,0,8"
+                            VerticalAlignment="Center" Style="{StaticResource Btn}" Click="Tema_Click" ToolTip="Tema escuro">
+                        <Viewbox Width="18" Height="18">
+                            <Canvas Width="24" Height="24">
+                                <Path x:Name="IconeLua" Fill="{DynamicResource Ink}"
+                                      Data="M21,12.8A9,9 0 1 1 11.2,3 7,7 0 0 0 21,12.8z"/>
+                                <Grid x:Name="IconeSol" Width="24" Height="24">
+                                    <Ellipse Width="7.6" Height="7.6" Stroke="{DynamicResource Ink}" StrokeThickness="1.7"/>
+                                    <Path Stroke="{DynamicResource Ink}" StrokeThickness="1.7"
+                                          StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                          Data="M12,4.2 V1.8 M12,22.2 V19.8 M4.9,4.9 L6.6,6.6 M17.4,17.4 L19.1,19.1 M1.8,12 H4.2 M19.8,12 H22.2 M4.9,19.1 L6.6,17.4 M17.4,6.6 L19.1,4.9"/>
+                                </Grid>
+                            </Canvas>
+                        </Viewbox>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <ScrollViewer x:Name="PaginaRolagem" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel MaxWidth="1180" Margin="16,0,16,48">
+                    <Border x:Name="Zona" Margin="0,20,0,0" Padding="18,22" CornerRadius="10" BorderThickness="2" Cursor="Hand" Focusable="True"
+                            MouseLeftButtonUp="Zona_Click" KeyDown="Zona_Key" ToolTip="Clique para escolher os PDFs">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="{DynamicResource Surface}"/>
+                                <Setter Property="BorderBrush" Value="{DynamicResource Line}"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Width="44" Height="52" BorderBrush="{DynamicResource Accent}" BorderThickness="2" CornerRadius="4" Margin="0,0,16,0" VerticalAlignment="Center">
+                                <TextBlock Text="NF-e" FontFamily="Consolas" FontWeight="SemiBold" FontSize="10" Foreground="{DynamicResource Accent}"
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,6"/>
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Text="Arraste aqui os PDFs de DANFE baixados do sistema" FontWeight="SemiBold" FontSize="15" TextWrapping="Wrap"/>
+                                <TextBlock Margin="0,2,12,0" FontSize="13" Foreground="{DynamicResource Muted}" TextWrapping="Wrap"
+                                           Text="Pode soltar vários arquivos de uma vez (DANFE unificado ou NF por NF). As notas são separadas pelo nº do carregamento automaticamente. Nada sai do seu computador."/>
+                            </StackPanel>
+                            <Border Grid.Column="2" Background="{DynamicResource AccentSoft}" CornerRadius="99" Padding="12,6" VerticalAlignment="Center">
+                                <TextBlock Text="Escolher arquivos" Foreground="{DynamicResource Accent}" FontSize="13"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <WrapPanel x:Name="PainelArquivos"/>
+
+                    <Border Margin="0,10,0,0" Padding="12,8" CornerRadius="8" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Line}" BorderThickness="1">
+                        <Expander x:Name="PainelParams" Background="Transparent">
+                            <Expander.Header>
+                                <TextBlock>
+                                    <Run Text="Parâmetros dos produtos" FontWeight="SemiBold"/>
+                                    <Run Text=" (fardos por volume × unidades por fardo)" Foreground="{DynamicResource Muted}"/>
+                                </TextBlock>
+                            </Expander.Header>
+                            <StackPanel Margin="0,8,0,0">
+                                <TextBlock FontSize="12" Foreground="{DynamicResource Muted}" TextWrapping="Wrap" Margin="0,0,0,6"
+                                           Text="O código tem prioridade. Sem código, o produto é reconhecido pelas palavras do nome (todas precisam aparecer na descrição da NF). As alterações ficam salvas neste computador."/>
+                                <DataGrid x:Name="GradeParams" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                          HeadersVisibility="Column" GridLinesVisibility="Horizontal" RowHeaderWidth="0"
+                                          Background="{DynamicResource Surface}" Foreground="{DynamicResource Ink}"
+                                          BorderBrush="{DynamicResource Line}" BorderThickness="1"
+                                          HorizontalGridLinesBrush="{DynamicResource Line}"
+                                          RowBackground="{DynamicResource Surface}" AlternatingRowBackground="{DynamicResource Surface}"
+                                          FontSize="12" MinHeight="80"
+                                          CellEditEnding="Grade_CellEditEnding" PreviewMouseWheel="Grade_PreviewMouseWheel">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Código" Binding="{Binding C, UpdateSourceTrigger=LostFocus}" Width="90"/>
+                                        <DataGridTextColumn Header="Produto (palavras-chave)" Binding="{Binding T, UpdateSourceTrigger=LostFocus}" Width="*"/>
+                                        <DataGridTextColumn Header="FD por volume" Binding="{Binding Fd, UpdateSourceTrigger=LostFocus}" Width="110"/>
+                                        <DataGridTextColumn Header="Un por FD" Binding="{Binding Un, UpdateSourceTrigger=LostFocus}" Width="90"/>
+                                        <DataGridTextColumn Header="Un/vol" Binding="{Binding UnVol}" IsReadOnly="True" Width="70"/>
+                                        <DataGridTemplateColumn Width="44">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Content="×" Width="28" Height="22" Padding="0" ToolTip="Remover" Cursor="Hand" Click="RemoverParam_Click"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                    <Button Style="{StaticResource Btn}" Content="Adicionar produto" Click="AddParam_Click"/>
+                                    <Button Style="{StaticResource Btn}" Content="Restaurar padrão" Click="ResetParam_Click"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                    </Border>
+
+                    <TextBlock x:Name="Msg" Margin="0,12,0,0" FontSize="13" Foreground="{DynamicResource Bad}" TextWrapping="Wrap" Visibility="Collapsed"/>
+                    <StackPanel x:Name="Saida"/>
+                </StackPanel>
+            </ScrollViewer>
+        </DockPanel>
+
+        <Border x:Name="Toast" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,24"
+                Background="{DynamicResource Ink}" CornerRadius="6" Padding="14,8" Visibility="Collapsed" IsHitTestVisible="False">
+            <TextBlock x:Name="ToastTexto" Foreground="{DynamicResource Bg}" FontSize="13"/>
+        </Border>
+    </Grid>
+</Window>
