@@ -20,7 +20,7 @@ Você solta os PDFs da DANFE baixados do sistema, um arquivo único ou várias n
 - a quebra de lote, quando o volume junta sobras de lotes diferentes
 - o fracionado, quando sobra quantidade de um lote só
 
-Os parâmetros de embalagem, fardos por volume e unidades por fardo, podem ser ajustados. O código do produto tem prioridade. Sem código, o nome da nota precisa conter as palavras cadastradas. Essas alterações ficam salvas neste computador.
+Os parâmetros de embalagem, fardos por volume e unidades por fardo, podem ser ajustados. O código do produto tem prioridade. Sem código, o nome da nota precisa conter as palavras cadastradas. Essas alterações ficam salvas no próprio computador.
 
 O resultado pode ser copiado para o Excel, baixado em planilha ou impresso, com a visualização das páginas antes de enviar para a impressora.
 
