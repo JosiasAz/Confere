@@ -1,4 +1,4 @@
-![Logo do Confere](src/assets/logo.jpg)
+<img src="src/assets/logo.jpg" alt="Logo do Confere" width="128">
 
 # Confere
 
